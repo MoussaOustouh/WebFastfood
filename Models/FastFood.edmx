@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FastFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" />
+          <Property Name="confirmation_code" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DELIVERY_MAN">
+          <Key>
+            <PropertyRef Name="id_delivery_man" />
+          </Key>
+          <Property Name="id_delivery_man" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" />
+          <Property Name="transport" Type="nvarchar" MaxLength="50" />
+          <Property Name="matricule" Type="nvarchar" MaxLength="16" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="authorized" Type="bit" Nullable="false" />
+          <Property Name="state" Type="bit" />
+          <Property Name="id_admin" Type="int" Nullable="false" />
+          <Property Name="confirmation_code" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="GEOLOCATION">
+          <Key>
+            <PropertyRef Name="id_geolocation" />
+          </Key>
+          <Property Name="id_geolocation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+          <Property Name="id_order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDER_CONTENT">
+          <Key>
+            <PropertyRef Name="id_order" />
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="id_order" Type="int" Nullable="false" />
+          <Property Name="id_product" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="category" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="available" Type="bit" Nullable="false" />
+          <Property Name="picture" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_admin" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TADMIN">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" />
+          <Property Name="authorized" Type="bit" Nullable="false" />
+          <Property Name="confirmation_code" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TORDER">
+          <Key>
+            <PropertyRef Name="id_order" />
+          </Key>
+          <Property Name="id_order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="order_datetime" Type="datetime" />
+          <Property Name="order_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="delivery_state" Type="tinyint" />
+          <Property Name="received_datetime" Type="datetime" />
+          <Property Name="id_delivery_man" Type="int" />
+          <Property Name="id_client" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_delivery_man_admin">
+          <End Role="TADMIN" Type="Self.TADMIN" Multiplicity="1" />
+          <End Role="DELIVERY_MAN" Type="Self.DELIVERY_MAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TADMIN">
+              <PropertyRef Name="id_admin" />
+            </Principal>
+            <Dependent Role="DELIVERY_MAN">
+              <PropertyRef Name="id_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_geolocation_order">
+          <End Role="TORDER" Type="Self.TORDER" Multiplicity="1" />
+          <End Role="GEOLOCATION" Type="Self.GEOLOCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER">
+              <PropertyRef Name="id_order" />
+            </Principal>
+            <Dependent Role="GEOLOCATION">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_client">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+          <End Role="TORDER" Type="Self.TORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="TORDER">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_content_order1">
+          <End Role="TORDER" Type="Self.TORDER" Multiplicity="1" />
+          <End Role="ORDER_CONTENT" Type="Self.ORDER_CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER">
+              <PropertyRef Name="id_order" />
+            </Principal>
+            <Dependent Role="ORDER_CONTENT">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_content_product1">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="ORDER_CONTENT" Type="Self.ORDER_CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="ORDER_CONTENT">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_delivery_man">
+          <End Role="DELIVERY_MAN" Type="Self.DELIVERY_MAN" Multiplicity="0..1" />
+          <End Role="TORDER" Type="Self.TORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DELIVERY_MAN">
+              <PropertyRef Name="id_delivery_man" />
+            </Principal>
+            <Dependent Role="TORDER">
+              <PropertyRef Name="id_delivery_man" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_admin1">
+          <End Role="TADMIN" Type="Self.TADMIN" Multiplicity="1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TADMIN">
+              <PropertyRef Name="id_admin" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="id_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FastFoodModelStoreContainer">
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DELIVERY_MAN" EntityType="Self.DELIVERY_MAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GEOLOCATION" EntityType="Self.GEOLOCATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDER_CONTENT" EntityType="Self.ORDER_CONTENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TADMIN" EntityType="Self.TADMIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TORDER" EntityType="Self.TORDER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_delivery_man_admin" Association="Self.FK_delivery_man_admin">
+            <End Role="TADMIN" EntitySet="TADMIN" />
+            <End Role="DELIVERY_MAN" EntitySet="DELIVERY_MAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_geolocation_order" Association="Self.FK_geolocation_order">
+            <End Role="TORDER" EntitySet="TORDER" />
+            <End Role="GEOLOCATION" EntitySet="GEOLOCATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_client" Association="Self.FK_order_client">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="TORDER" EntitySet="TORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_content_order1" Association="Self.FK_order_content_order1">
+            <End Role="TORDER" EntitySet="TORDER" />
+            <End Role="ORDER_CONTENT" EntitySet="ORDER_CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_content_product1" Association="Self.FK_order_content_product1">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="ORDER_CONTENT" EntitySet="ORDER_CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_delivery_man" Association="Self.FK_order_delivery_man">
+            <End Role="DELIVERY_MAN" EntitySet="DELIVERY_MAN" />
+            <End Role="TORDER" EntitySet="TORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_admin1" Association="Self.FK_product_admin1">
+            <End Role="TADMIN" EntitySet="TADMIN" />
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FastFoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FastFoodEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLIENTs" EntityType="FastFoodModel.CLIENT" />
+          <EntitySet Name="DELIVERY_MAN" EntityType="FastFoodModel.DELIVERY_MAN" />
+          <EntitySet Name="GEOLOCATIONs" EntityType="FastFoodModel.GEOLOCATION" />
+          <EntitySet Name="ORDER_CONTENT" EntityType="FastFoodModel.ORDER_CONTENT" />
+          <EntitySet Name="PRODUCTs" EntityType="FastFoodModel.PRODUCT" />
+          <EntitySet Name="TADMINs" EntityType="FastFoodModel.TADMIN" />
+          <EntitySet Name="TORDERs" EntityType="FastFoodModel.TORDER" />
+          <AssociationSet Name="FK_order_client" Association="FastFoodModel.FK_order_client">
+            <End Role="CLIENT" EntitySet="CLIENTs" />
+            <End Role="TORDER" EntitySet="TORDERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_delivery_man_admin" Association="FastFoodModel.FK_delivery_man_admin">
+            <End Role="TADMIN" EntitySet="TADMINs" />
+            <End Role="DELIVERY_MAN" EntitySet="DELIVERY_MAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_delivery_man" Association="FastFoodModel.FK_order_delivery_man">
+            <End Role="DELIVERY_MAN" EntitySet="DELIVERY_MAN" />
+            <End Role="TORDER" EntitySet="TORDERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_geolocation_order" Association="FastFoodModel.FK_geolocation_order">
+            <End Role="TORDER" EntitySet="TORDERs" />
+            <End Role="GEOLOCATION" EntitySet="GEOLOCATIONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_content_order1" Association="FastFoodModel.FK_order_content_order1">
+            <End Role="TORDER" EntitySet="TORDERs" />
+            <End Role="ORDER_CONTENT" EntitySet="ORDER_CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_content_product1" Association="FastFoodModel.FK_order_content_product1">
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+            <End Role="ORDER_CONTENT" EntitySet="ORDER_CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_admin1" Association="FastFoodModel.FK_product_admin1">
+            <End Role="TADMIN" EntitySet="TADMINs" />
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="confirmation_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TORDERs" Relationship="FastFoodModel.FK_order_client" FromRole="CLIENT" ToRole="TORDER" />
+        </EntityType>
+        <EntityType Name="DELIVERY_MAN">
+          <Key>
+            <PropertyRef Name="id_delivery_man" />
+          </Key>
+          <Property Name="id_delivery_man" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="transport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="matricule" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="authorized" Type="Boolean" Nullable="false" />
+          <Property Name="state" Type="Boolean" />
+          <Property Name="id_admin" Type="Int32" Nullable="false" />
+          <Property Name="confirmation_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TADMIN" Relationship="FastFoodModel.FK_delivery_man_admin" FromRole="DELIVERY_MAN" ToRole="TADMIN" />
+          <NavigationProperty Name="TORDERs" Relationship="FastFoodModel.FK_order_delivery_man" FromRole="DELIVERY_MAN" ToRole="TORDER" />
+        </EntityType>
+        <EntityType Name="GEOLOCATION">
+          <Key>
+            <PropertyRef Name="id_geolocation" />
+          </Key>
+          <Property Name="id_geolocation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TORDER" Relationship="FastFoodModel.FK_geolocation_order" FromRole="GEOLOCATION" ToRole="TORDER" />
+        </EntityType>
+        <EntityType Name="ORDER_CONTENT">
+          <Key>
+            <PropertyRef Name="id_order" />
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="id_order" Type="Int32" Nullable="false" />
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TORDER" Relationship="FastFoodModel.FK_order_content_order1" FromRole="ORDER_CONTENT" ToRole="TORDER" />
+          <NavigationProperty Name="PRODUCT" Relationship="FastFoodModel.FK_order_content_product1" FromRole="ORDER_CONTENT" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="available" Type="Boolean" Nullable="false" />
+          <Property Name="picture" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_admin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ORDER_CONTENT" Relationship="FastFoodModel.FK_order_content_product1" FromRole="PRODUCT" ToRole="ORDER_CONTENT" />
+          <NavigationProperty Name="TADMIN" Relationship="FastFoodModel.FK_product_admin1" FromRole="PRODUCT" ToRole="TADMIN" />
+        </EntityType>
+        <EntityType Name="TADMIN">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="authorized" Type="Boolean" Nullable="false" />
+          <Property Name="confirmation_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DELIVERY_MAN" Relationship="FastFoodModel.FK_delivery_man_admin" FromRole="TADMIN" ToRole="DELIVERY_MAN" />
+          <NavigationProperty Name="PRODUCTs" Relationship="FastFoodModel.FK_product_admin1" FromRole="TADMIN" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="TORDER">
+          <Key>
+            <PropertyRef Name="id_order" />
+          </Key>
+          <Property Name="id_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="order_datetime" Type="DateTime" Precision="3" />
+          <Property Name="order_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="delivery_state" Type="Byte" />
+          <Property Name="received_datetime" Type="DateTime" Precision="3" />
+          <Property Name="id_delivery_man" Type="Int32" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CLIENT" Relationship="FastFoodModel.FK_order_client" FromRole="TORDER" ToRole="CLIENT" />
+          <NavigationProperty Name="DELIVERY_MAN" Relationship="FastFoodModel.FK_order_delivery_man" FromRole="TORDER" ToRole="DELIVERY_MAN" />
+          <NavigationProperty Name="GEOLOCATIONs" Relationship="FastFoodModel.FK_geolocation_order" FromRole="TORDER" ToRole="GEOLOCATION" />
+          <NavigationProperty Name="ORDER_CONTENT" Relationship="FastFoodModel.FK_order_content_order1" FromRole="TORDER" ToRole="ORDER_CONTENT" />
+        </EntityType>
+        <Association Name="FK_order_client">
+          <End Type="FastFoodModel.CLIENT" Role="CLIENT" Multiplicity="1" />
+          <End Type="FastFoodModel.TORDER" Role="TORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="TORDER">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_delivery_man_admin">
+          <End Type="FastFoodModel.TADMIN" Role="TADMIN" Multiplicity="1" />
+          <End Type="FastFoodModel.DELIVERY_MAN" Role="DELIVERY_MAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TADMIN">
+              <PropertyRef Name="id_admin" />
+            </Principal>
+            <Dependent Role="DELIVERY_MAN">
+              <PropertyRef Name="id_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_delivery_man">
+          <End Type="FastFoodModel.DELIVERY_MAN" Role="DELIVERY_MAN" Multiplicity="0..1" />
+          <End Type="FastFoodModel.TORDER" Role="TORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DELIVERY_MAN">
+              <PropertyRef Name="id_delivery_man" />
+            </Principal>
+            <Dependent Role="TORDER">
+              <PropertyRef Name="id_delivery_man" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_geolocation_order">
+          <End Type="FastFoodModel.TORDER" Role="TORDER" Multiplicity="1" />
+          <End Type="FastFoodModel.GEOLOCATION" Role="GEOLOCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER">
+              <PropertyRef Name="id_order" />
+            </Principal>
+            <Dependent Role="GEOLOCATION">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_content_order1">
+          <End Type="FastFoodModel.TORDER" Role="TORDER" Multiplicity="1" />
+          <End Type="FastFoodModel.ORDER_CONTENT" Role="ORDER_CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER">
+              <PropertyRef Name="id_order" />
+            </Principal>
+            <Dependent Role="ORDER_CONTENT">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_content_product1">
+          <End Type="FastFoodModel.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+          <End Type="FastFoodModel.ORDER_CONTENT" Role="ORDER_CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="ORDER_CONTENT">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_admin1">
+          <End Type="FastFoodModel.TADMIN" Role="TADMIN" Multiplicity="1" />
+          <End Type="FastFoodModel.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TADMIN">
+              <PropertyRef Name="id_admin" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="id_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FastFoodModelStoreContainer" CdmEntityContainer="FastFoodEntities">
+          <EntitySetMapping Name="CLIENTs">
+            <EntityTypeMapping TypeName="FastFoodModel.CLIENT">
+              <MappingFragment StoreEntitySet="CLIENT">
+                <ScalarProperty Name="confirmation_code" ColumnName="confirmation_code" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DELIVERY_MAN">
+            <EntityTypeMapping TypeName="FastFoodModel.DELIVERY_MAN">
+              <MappingFragment StoreEntitySet="DELIVERY_MAN">
+                <ScalarProperty Name="confirmation_code" ColumnName="confirmation_code" />
+                <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="authorized" ColumnName="authorized" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="matricule" ColumnName="matricule" />
+                <ScalarProperty Name="transport" ColumnName="transport" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="id_delivery_man" ColumnName="id_delivery_man" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GEOLOCATIONs">
+            <EntityTypeMapping TypeName="FastFoodModel.GEOLOCATION">
+              <MappingFragment StoreEntitySet="GEOLOCATION">
+                <ScalarProperty Name="id_order" ColumnName="id_order" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="id_geolocation" ColumnName="id_geolocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_CONTENT">
+            <EntityTypeMapping TypeName="FastFoodModel.ORDER_CONTENT">
+              <MappingFragment StoreEntitySet="ORDER_CONTENT">
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_order" ColumnName="id_order" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTs">
+            <EntityTypeMapping TypeName="FastFoodModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="available" ColumnName="available" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TADMINs">
+            <EntityTypeMapping TypeName="FastFoodModel.TADMIN">
+              <MappingFragment StoreEntitySet="TADMIN">
+                <ScalarProperty Name="confirmation_code" ColumnName="confirmation_code" />
+                <ScalarProperty Name="authorized" ColumnName="authorized" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TORDERs">
+            <EntityTypeMapping TypeName="FastFoodModel.TORDER">
+              <MappingFragment StoreEntitySet="TORDER">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_delivery_man" ColumnName="id_delivery_man" />
+                <ScalarProperty Name="received_datetime" ColumnName="received_datetime" />
+                <ScalarProperty Name="delivery_state" ColumnName="delivery_state" />
+                <ScalarProperty Name="order_code" ColumnName="order_code" />
+                <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="order_state" ColumnName="order_state" />
+                <ScalarProperty Name="id_order" ColumnName="id_order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

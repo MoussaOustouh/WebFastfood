@@ -1,0 +1,190 @@
+﻿:root {
+    --colorPrimary: #f58634;
+    --colorPrimaryDark: #ffa45b;
+    --colorAccent: #ffcc29;
+}
+
+body{
+    margin: 0px;
+}
+
+.bgc_cP {
+    background-color: var(--colorPrimary) !important;
+}
+.bgc_cPD {
+    background-color: var(--colorPrimaryDark) !important;
+}
+.bgc_cA {
+    background-color: var(--colorAccent) !important;
+}
+
+.c_cP {
+    color: var(--colorPrimary) !important;
+}
+.c_cPD {
+    color: var(--colorPrimaryDark) !important;
+}
+.c_cA {
+    color: var(--colorAccent) !important;
+}
+
+.bc_cP {
+    border-color: var(--colorPrimary) !important;
+}
+
+.bc_cPD {
+    border-color: var(--border-colorPrimaryDark) !important;
+}
+
+.bc_cA {
+    border-color: var(--border-colorAccent) !important;
+}
+
+
+.nav1 {
+    background-color: var(--colorPrimary) !important;
+}
+
+.nav1 a{
+    
+}
+
+.img_shadow {
+    box-shadow: 0 0 0 .2rem rgba(255, 204, 41, 0.46);
+    border: 1px solid var(--colorPrimaryDark);
+    border-radius: 20px !important;
+    height: 199px;
+    max-width: 80%;
+    margin-top: 8px;
+}
+
+.img_d_n1[src=""], .img_d_n1:not([src]) {
+    display: none !important;
+}
+
+
+
+/*   Menu.aspx   */
+.card1 {
+    width: 16rem !important;
+    margin-bottom: 15px !important;
+    padding-bottom: 5px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    border:none;
+}
+
+.product-img-div1 {
+    border: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom: 1px solid rgba(0,0,0,.075) !important;
+    border-radius: 10px 10px 0px 0px;
+    max-width:100%;
+}
+
+.product-img1 {
+    max-width: 100% !important;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.product-info1 {
+    padding-top: 5px !important;
+    padding-bottom: 2px !important;
+    flex: none;
+    border: 1px solid rgba(0,0,0,.125) !important;
+    border-top: 1px solid rgba(0,0,0,.075) !important;
+    border-radius: 0px 0px 10px 10px;
+    padding-bottom: 5px;
+}
+
+
+.available_False {
+    box-shadow: 0px 0px 10px red !important;
+}
+
+
+
+
+/*------------------------------------------*/
+/*   Orders.aspx   */
+.card2 {
+    width: 25rem !important;
+    margin-bottom: 15px !important;
+    padding-bottom: 5px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    border-radius: 10px;
+    border: none;
+}
+
+.client-full-info-div1 {
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom: 2px solid rgba(0,0,0,.075) !important;
+    border-radius: 10px 10px 0px 0px;
+    max-width: 100%;
+}
+
+.img_client1 {
+    max-width: 70px !important;
+    max-height: 70px !important;
+    border-radius: 50% !important;
+}
+
+.client-info-div1 {
+    padding-left: 10px !important;
+}
+
+
+
+
+
+.bill-info1 {
+    padding: 5px !important;
+    flex: none;
+    border: 1px solid rgba(0,0,0,.125) !important;
+    border-top: 1px solid rgba(0,0,0,.075) !important;
+    padding-bottom: 5px;
+}
+
+.bill1 {
+    width: 100% !important;
+    border: 2px dotted #00000000 !important;
+    border-bottom: 2px solid rgba(0,0,0,.055) !important;
+}
+
+.bill1 .col-td-1{
+    font-size: 16px;
+    border: 2px dotted #00000000 !important;
+}
+
+.bill1 .col-td-2{
+    text-align: right !important;
+    padding-left: 10px !important;
+    min-width: 40px;
+    border: 2px dotted #00000000 !important;
+    vertical-align: top;
+}
+
+
+
+.dm-full-info-div1 {
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom: 2px solid rgba(0,0,0,.075) !important;
+    border-radius: 0px 0px 10px 10px;
+    max-width: 100%;
+}
+
+.img_dm1 {
+    max-width: 70px !important;
+    max-height: 70px !important;
+    border-radius: 50% !important;
+}
+
+.dm-info-div1 {
+    padding-left: 10px !important;
+}
+
+
+
+

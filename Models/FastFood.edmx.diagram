@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b634432dd32244acaa16ee3228a1a967" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="FastFoodModel.CLIENT" Width="1.5" PointX="3" PointY="11.375" />
+        <EntityTypeShape EntityType="FastFoodModel.DELIVERY_MAN" Width="1.5" PointX="3" PointY="1.625" />
+        <EntityTypeShape EntityType="FastFoodModel.GEOLOCATION" Width="1.5" PointX="7.5" PointY="2.75" />
+        <EntityTypeShape EntityType="FastFoodModel.ORDER_CONTENT" Width="1.5" PointX="7.5" PointY="5.75" />
+        <EntityTypeShape EntityType="FastFoodModel.PRODUCT" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="FastFoodModel.TADMIN" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="FastFoodModel.TORDER" Width="1.5" PointX="5.25" PointY="2" />
+        <AssociationConnector Association="FastFoodModel.FK_order_client" />
+        <AssociationConnector Association="FastFoodModel.FK_delivery_man_admin" />
+        <AssociationConnector Association="FastFoodModel.FK_order_delivery_man" />
+        <AssociationConnector Association="FastFoodModel.FK_geolocation_order" />
+        <AssociationConnector Association="FastFoodModel.FK_order_content_order1" />
+        <AssociationConnector Association="FastFoodModel.FK_order_content_product1" />
+        <AssociationConnector Association="FastFoodModel.FK_product_admin1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
